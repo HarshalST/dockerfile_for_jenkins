@@ -1,4 +1,4 @@
-FROM docker.io/busybox
+FROM busybox
 RUN touch "day1"
 CMD ["ping", "yahoo.com"]
 #testing
