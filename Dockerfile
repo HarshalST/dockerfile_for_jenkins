@@ -1,5 +1,3 @@
 FROM busybox
 RUN touch "day1"
-CMD ["ping", "yahoo.com"]
-#testing
-#tessting1234
+CMD ["ping", "-c 4", "yahoo.com"]
