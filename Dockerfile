@@ -1,3 +1,3 @@
 FROM busybox
 RUN touch "day1"
-CMD ["ping", "google.com"]
+CMD ["ping -c4 google.com"]
