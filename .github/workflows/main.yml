@@ -24,4 +24,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-jenkins:second_github_actions
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-jenkins:third_github_actions
