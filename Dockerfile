@@ -1,6 +1,4 @@
-FROM ubuntu 
-RUN apt update 
-RUN apt install –y apache2 
-RUN echo "hii" > /var/www/html/index.html
+FROM httpd
+RUN echo "hii" > /usr/local/apache2/htdocs/index.html
 EXPOSE 80
-CMD [“apache2ctl”, “-D”, “FOREGROUND”]
+CMD [“httpd-foreground”]
