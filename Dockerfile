@@ -1,4 +1,5 @@
-FROM httpd:latest
-RUN echo "harshal" > /usr/local/apache2/htdocs/index.html
+FROM ubuntu:latest
+RUN apt update 
+RUN apt install –y apache2 
 EXPOSE 80
-
+CMD [“apache2ctl”, “-D”, “FOREGROUND”]
