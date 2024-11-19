@@ -5,8 +5,8 @@ on:
 
 jobs:
   docker:
-    runs-on: ubuntu-latest
-      labels: kucl22
+    runs-on: 
+     labels: kucl22
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
