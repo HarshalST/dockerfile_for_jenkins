@@ -24,7 +24,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME}}/docker-jenkins:actions
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/qod:actions
   deploy:
     needs: docker_1
     name: deploy image
@@ -32,4 +32,4 @@ jobs:
       labels: kucl22
     steps:
       - name: connect and pull
-        run: ssh ${{ secrets.S_USER }}@${{ secrets.D_HOST }} "docker run -d ${{ secrets.DOCKERHUB_USERNAME}}/docker-jenkins:actions"
+        run: ssh ${{ secrets.S_USER }}@${{ secrets.D_HOST }} "docker run -d ${{ secrets.DOCKERHUB_USERNAME}}/qod:actions"
