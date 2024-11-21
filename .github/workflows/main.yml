@@ -24,7 +24,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME}}/kucl22:actions
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/qod:actions2
   deploy:
     needs: docker_1
     name: k8s deployment 
