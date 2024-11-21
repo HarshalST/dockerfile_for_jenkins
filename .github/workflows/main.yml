@@ -32,4 +32,4 @@ jobs:
       labels: kucl22
     steps:
       - name: connect and pull
-        run: ssh ${{ secrets.S_USER }}@${{ secrets.D_HOST }} "docker run -d ${{ secrets.DOCKERHUB_USERNAME}}/qod:actions"
+        run: ssh ${{ secrets.D_USER }}@${{ secrets.D_HOST }} "docker run -d ${{ secrets.DOCKERHUB_USERNAME}}/qod:actions"
