@@ -32,6 +32,8 @@ jobs:
       labels: k8s_master
     steps:
       - name: create deployment
-      # run: mkdir ${HOME}/.kube
-      # run: echo ${{ secrets.MYKUBECONFIG} } | base64  --decode > ${HOME}/.kube/config
-        run: kubectl create deployment githubaction --image=docker.io/httpd
+        run: mkdir ${HOME}/.kube
+             echo ${{ secrets.MYKUBECONFIG }} | base64  --decode > /tmp/myconfig
+             sed -i 's,docker.io/httpd,${{ secrets.DOCKERHUB_USERNAME }}/qod:actions2,' deployment.yaml
+             kubectl apply -f deployment.yaml --kubeconfig=/tmp/myconfig
+      # run: kubectl create deployment githubaction --image=docker.io/httpd
