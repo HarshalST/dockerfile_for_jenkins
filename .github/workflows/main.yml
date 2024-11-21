@@ -31,12 +31,17 @@ jobs:
     runs-on: 
       labels: killer
     steps:
-      - name: create deployment0
-        run: echo ${{ secrets.MYKUBECONFIG }} > /tmp/config
-      - name: create deployment1
-        run:  base64  --decode /tmp/config > /tmp/myconfig
-      - name: create deployment2
+     - name: decode kubeconfig
+       run: echo ${{ secrets.MYKUBECONFIG }} | base64  --decode > /tmp/myconfig
+     
+     # - name: decode kubeconfig
+     #   run: echo ${{ secrets.MYKUBECONFIG }} > /tmp/config
+        
+     # - name: create deployment1
+     #   run:  base64  --decode /tmp/config > /tmp/myconfig
+        
+      - name: replace image
         run:  sed -i 's,docker.io/httpd,${{ secrets.DOCKERHUB_USERNAME }}/qod:actions2,' deployment.yaml
-      - name: create deployment3
+        
+      - name: create deployment
         run: kubectl apply -f deployment.yaml --kubeconfig=/tmp/myconfig
-      # run: kubectl create deployment githubaction --image=docker.io/httpd
