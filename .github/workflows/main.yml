@@ -29,10 +29,10 @@ jobs:
     needs: docker_1
     name: k8s deployment 
     runs-on: 
-      labels: killer
+      labels: k8s_master
     steps:
       - name: decode kubeconfig
-        run: echo "${{ secrets.MYKUBECONFIG }}" | base64  --decode > /tmp/myconfig
+        run: echo "${{ secrets.BASEKUBECONFIG }}" | base64  --decode > /tmp/myconfig
      
      # - name: decode kubeconfig
      #   run: echo ${{ secrets.MYKUBECONFIG }} > /tmp/config
