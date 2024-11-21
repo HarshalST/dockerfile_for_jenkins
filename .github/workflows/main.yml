@@ -31,8 +31,8 @@ jobs:
     runs-on: 
       labels: killer
     steps:
-     - name: decode kubeconfig
-       run: echo ${{ secrets.MYKUBECONFIG }} | base64  --decode > /tmp/myconfig
+      - name: decode kubeconfig
+        run: echo ${{ secrets.MYKUBECONFIG }} | base64  --decode > /tmp/myconfig
      
      # - name: decode kubeconfig
      #   run: echo ${{ secrets.MYKUBECONFIG }} > /tmp/config
