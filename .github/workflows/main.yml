@@ -32,7 +32,7 @@ jobs:
       labels: killer
     steps:
       - name: decode kubeconfig
-        run: echo ${{ secrets.MYKUBECONFIG }} | base64  --decode > /tmp/myconfig
+        run: echo "${{ secrets.MYKUBECONFIG }}" | base64  --decode > /tmp/myconfig
      
      # - name: decode kubeconfig
      #   run: echo ${{ secrets.MYKUBECONFIG }} > /tmp/config
