@@ -44,7 +44,7 @@ jobs:
         run:  sed -i 's,docker.io/httpd,${{ secrets.DOCKERHUB_USERNAME }}/qod:actions2,' **/deployment.yaml
 
       - name: create deployment
-        run: kubectl apply -f deployment.yaml --kubeconfig=/tmp/myconfig  
+        run: kubectl apply -f **/deployment.yaml --kubeconfig=/tmp/myconfig  
       
       #- name: create deployment
       #  run: kubectl create deployment mydep123 --image=docker.io/httpd --kubeconfig=/tmp/myconfig
