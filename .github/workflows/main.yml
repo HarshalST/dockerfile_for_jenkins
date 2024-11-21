@@ -39,7 +39,9 @@ jobs:
         
      # - name: create deployment1
      #   run:  base64  --decode /tmp/config > /tmp/myconfig
-
+      - name: clone
+        run:  https://github.com/HarshalST/dockerfile_for_jenkins
+        
       - name: replace image
         run:  sed -i 's,docker.io/httpd,${{ secrets.DOCKERHUB_USERNAME }}/qod:actions2,' **/deployment.yaml
 
