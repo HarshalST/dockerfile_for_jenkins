@@ -40,8 +40,8 @@ jobs:
      # - name: create deployment1
      #   run:  base64  --decode /tmp/config > /tmp/myconfig
         
-      - name: replace image
-        run:  sed -i 's,docker.io/httpd,${{ secrets.DOCKERHUB_USERNAME }}/qod:actions2,' deployment.yaml
+     # - name: replace image
+     #   run:  sed -i 's,docker.io/httpd,${{ secrets.DOCKERHUB_USERNAME }}/qod:actions2,' deployment.yaml
         
       - name: create deployment
-        run: kubectl apply -f deployment.yaml --kubeconfig=/tmp/myconfig
+        run: kubectl create deployment mydep123 --image=docker.io/httpd --kubeconfig=/tmp/myconfig
