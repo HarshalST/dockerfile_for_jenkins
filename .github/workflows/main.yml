@@ -3,8 +3,8 @@ on:
   push:
 jobs:
   docker_1:
-    runs-on:  
-      labels: kucl22 
+    runs-on: ubuntu-latest 
+      #labels: kucl22 
          
     steps:
       -
@@ -24,12 +24,14 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/qod:actions
+          tags: ${{ secrets.DOCKERHUB_USERNAME}}/kucl22:actions
   deploy:
     needs: docker_1
-    name: deploy image
+    name: k8s deployment 
     runs-on: 
-      labels: kucl22
+      labels: k8s_master
     steps:
-      - name: connect and pull
-        run: ssh ${{ secrets.D_USER }}@${{ secrets.D_HOST }} "docker run -d ${{ secrets.DOCKERHUB_USERNAME}}/qod:actions"
+      - name: create deployment
+      # run: mkdir ${HOME}/.kube
+      # run: echo ${{ secrets.MYKUBECONFIG} } | base64  --decode > ${HOME}/.kube/config
+        run: kubectl create deployment githubaction --image=docker.io/httpd
