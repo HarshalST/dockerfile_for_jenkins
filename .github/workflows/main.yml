@@ -1,11 +1,10 @@
-name: Docker CI Learning - KUCL 
+name: Docker_CI_setup_using_self-hosted_runner
 on:
   push:
 jobs:
-  docker_1:
-    runs-on: ubuntu-latest 
-      #labels: kucl22 
-         
+  docker:
+    runs-on:
+       labels: killer
     steps:
       -
         name: Set up QEMU test
@@ -24,29 +23,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/qod:actions2
-  deploy:
-    needs: docker_1
-    name: k8s deployment 
-    runs-on: 
-      labels: k8s_master
-    steps:
-      - name: decode kubeconfig
-        run: echo "${{ secrets.BASEKUBECONFIG }}" | base64  --decode > /tmp/myconfig
-     
-     # - name: decode kubeconfig
-     #   run: echo ${{ secrets.MYKUBECONFIG }} > /tmp/config
-        
-     # - name: create deployment1
-     #   run:  base64  --decode /tmp/config > /tmp/myconfig
-      - name: clone
-        run:  git clone https://github.com/HarshalST/dockerfile_for_jenkins
-        
-      - name: replace image
-        run:  sed -i 's,docker.io/httpd,${{ secrets.DOCKERHUB_USERNAME }}/qod:actions2,' **/deployment.yaml
-
-      - name: create deployment
-        run: kubectl apply -f **/deployment.yaml --kubeconfig=/tmp/myconfig  
-      
-      #- name: create deployment
-      #  run: kubectl create deployment mydep123 --image=docker.io/httpd --kubeconfig=/tmp/myconfig
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/qod:docker-ci-setup-on-self-hosted-runner
