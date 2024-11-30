@@ -1,4 +1,4 @@
-name: Docker_CI_setup_using_self-hosted_runner
+name: Docker_CI/CD_pipeline_on_self-hosted_runner
 on:
   push:
 jobs:
@@ -6,21 +6,25 @@ jobs:
     runs-on:
        labels: killer
     steps:
-      -
-        name: Set up QEMU test
+      - name: Set up QEMU test
         uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
+        
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      -
-        name: Login to Docker Hub
+        
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
+          
+      - name: Build and push
         uses: docker/build-push-action@v6
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/qod:docker-ci-setup-on-self-hosted-runner
+          
+      - name: Pull and Run Docker Container
+        run: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/qod:docker-ci-setup-on-self-hosted-runner
+          docker run -d --name qod-container ${{ secrets.DOCKERHUB_USERNAME }}/qod:docker-ci-setup-on-self-hosted-runner
