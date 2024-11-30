@@ -27,4 +27,4 @@ jobs:
       - name: Pull and Run Docker Container
         run: |
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/qod:docker-ci-setup-on-self-hosted-runner
-          docker run -d --name qod-container ${{ secrets.DOCKERHUB_USERNAME }}/qod:docker-ci-setup-on-self-hosted-runner
+          docker run -itd --name qod-container ${{ secrets.DOCKERHUB_USERNAME }}/qod:docker-ci-setup-on-self-hosted-runner
