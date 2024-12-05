@@ -1,30 +1,34 @@
-name: Docker_CI/CD_pipeline_on_self-hosted_runner
+name: Docker CI Learning - KUCL 
 on:
   push:
 jobs:
-  docker:
-    runs-on:
-       labels: killer
+  docker_1:
+    runs-on: 
+      labels: k8s_master
     steps:
       - name: Set up QEMU test
         uses: docker/setup-qemu-action@v3
-        
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/qod:docker-ci-setup-on-self-hosted-runner
-          
-      - name: Pull and Run Docker Container
-        run: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/qod:docker-ci-setup-on-self-hosted-runner
-          docker run -itd --name qod-container ${{ secrets.DOCKERHUB_USERNAME }}/qod:docker-ci-setup-on-self-hosted-runner
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/qod:actions2
+  deploy:
+    needs: docker_1
+    name: k8s deployment 
+    runs-on: 
+      labels: k8s_master
+    steps:
+      - name: clone
+        run:  git clone https://github.com/HarshalST/dockerfile_for_jenkins
+      - name: replace image
+        run:  sed -i 's,docker.io/httpd,${{ secrets.DOCKERHUB_USERNAME }}/qod:actions2,' **/deployment.yaml
+      - name: create deployment
+        run: kubectl apply -f **/deployment.yaml --kubeconfig=/tmp/myconfig  
