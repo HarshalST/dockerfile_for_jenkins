@@ -1,4 +1,4 @@
-name: Docker CI Learning - KUCL 
+name: Docker-K8s CI/CD Pipeline 
 on:
   push:
 jobs:
@@ -26,8 +26,8 @@ jobs:
     runs-on: 
       labels: k8s_master
     steps:
-      - name: clone
-        run:  git clone https://github.com/HarshalST/dockerfile_for_jenkins
+    #  - name: clone
+    #    run:  git clone https://github.com/HarshalST/dockerfile_for_jenkins
       - name: replace image
         run:  sed -i 's,docker.io/httpd,${{ secrets.DOCKERHUB_USERNAME }}/qod:actions2,' **/deployment.yaml
       - name: create deployment
